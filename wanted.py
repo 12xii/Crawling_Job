@@ -17,6 +17,7 @@ urls = [] # 빈 리스트 생성
 length = len(str(soup.select('div .List_List_container__JnQMS > ul > li > div > a')).split('<a aria-label')) - 1 # 총 공고 개수 가져오기
 
 for i in range(length):
-    urls.append(soup.select('div .List_List_container__JnQMS > ul > li > div > a')[i]['href']) # urls 리스트에 각 id parameter 추가
+    param = soup.select('div .List_List_container__JnQMS > ul > li > div > a')[i]['href'] # 각 id parameter 가져오기
+    urls.append(f'https://www.wanted.co.kr{param}') # urls 리스트에 각 id parameter를 추가한 URL 추가
 
 # https://www.wanted.co.kr + urls[n]

@@ -18,6 +18,7 @@ selects = str(soup.select('div .sc-fIosxK.fKzIXW > a')).replace('[', '').split('
 lengths = len(selects) # 총 공고 개수 가져오기
 
 for i in range(lengths):
-   urls.append(soup.select('div .sc-fIosxK.fKzIXW > a')[i]['href']) # urls 리스트에 각 id parameter 추가
+   param = soup.select('div .sc-fIosxK.fKzIXW > a')[i]['href'] # 각 id parameter 가져오기
+   urls.append(f'https://www.jumpit.co.kr{param}') # urls 리스트에 각 id parameter를 추가한 URL 추가
 
 # https://www.jumpit.co.kr + urls[n]

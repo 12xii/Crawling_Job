@@ -28,6 +28,5 @@ for i in range(1) :
     soups = bs(htmls, 'html.parser') # bs4 모듈로 html 파싱
 
     for j in range(40): # 페이지네이션 된 페이지 당 공고는 최대 40개씩 할당되어있음
-        urls.append(soups.select('div .tplJobListWrap.devTplTabBx > div > table > tbody > tr > td > div > strong > a')[j]['href']) # urls 리스트에 각 id parameter 추가
-
-# https://jobkorea.co.kr + urls[n]
+        param = soups.select('div .tplJobListWrap.devTplTabBx > div > table > tbody > tr > td > div > strong > a')[j]['href'] # id parameter 가져오기
+        urls.append(f'https://jobkorea.co.kr{param}') # urls 리스트에 각 id parameter를 추가한 URL 추가
