@@ -2,7 +2,8 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup as bs
 
-browser = webdriver.Chrome(ChromeDriverManager().install()) # browser 변수에  chromeDriveManager 최신 버전 (자동 업데이트) 할당
+browser = webdriver.Chrome(ChromeDriverManager().install()) 
+# browser 변수에  chromeDriveManager 최신 버전 (자동 업데이트) 할당
 browser.implicitly_wait(10) # 브라우저 로딩까지 10초간 대기
 
 wantedUrl = 'https://www.wanted.co.kr/wdlist/518?country=kr&job_sort=company.response_rate_order&years=-1&locations=all' # id parameter를 가져올 base url
@@ -19,5 +20,15 @@ length = len(str(soup.select('div .List_List_container__JnQMS > ul > li > div > 
 for i in range(length):
     param = soup.select('div .List_List_container__JnQMS > ul > li > div > a')[i]['href'] # 각 id parameter 가져오기
     urls.append(f'https://www.wanted.co.kr{param}') # urls 리스트에 각 id parameter를 추가한 URL 추가
+
+# for url in urls:
+#     browser.get(url)
+
+browser.get(urls[0])
+
+soup = str(bs(browser.page_source, 'html.parser').select('.JobDescription_JobDescription__VWfcb span')) # 게시글 내용 가져옴
+
+ceritify = soup.split('<span>')[3].replace('</span>', '').replace('<br/>', '').split('•') # 자격요건
+then = soup.split('<span>')[4].replace('</span>', '').replace('<br/>', '').split('•') #우대사항
 
 # https://www.wanted.co.kr + urls[n]
